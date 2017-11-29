@@ -13,8 +13,6 @@ import java.awt.event.KeyListener;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Timer;
-  
-public class GamePanel extends JPanel{ 
 
 
 public class GamePanel extends JPanel{ 
@@ -31,6 +29,4 @@ public class GamePanel extends JPanel{
                             AMMO = KeyEvent.VK_SPACE,  //used to do an attack or defens action
                             ESCAPE = KeyEvent.VK_ENTER;  //used for menu entering, ect
     
-}
-
 }
