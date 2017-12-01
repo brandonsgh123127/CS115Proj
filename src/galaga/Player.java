@@ -4,8 +4,6 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Player {
-    private int lives;
-    private Color c;
     private int xPos, yPos, width, height;
     
     /**
@@ -50,9 +48,28 @@ public class Player {
     public int getHeight(){
         return height;
     }
-    
-    
-    public void paint(Graphics g){
-        
+    /**
+     * Moves the player to the right one pixel
+     */
+    public void moveRight(){
+        xPos += getWidth();
+    }
+    /**
+     * Moves the player to the left one pixel
+     */
+    public void moveLeft(){
+        xPos -= getWidth();
+    }
+    /**
+     * Moves the player up one pixel
+     */
+    public void moveUp(){
+        yPos += getHeight();
+    }
+    /**
+     * Moves the player down one pixel
+     */
+    public void moveDown(){
+        yPos -= getHeight();
     }
 }

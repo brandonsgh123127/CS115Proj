@@ -2,12 +2,14 @@ package galaga;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
 /**
  *
  * @author soslovic
  */
 public class Controlled_Player extends Player{
-    private int ammo;
+    private int lives;
+    private int score = 0; //Sets the initial score of the player to 0
     
     /**
      * The constructor
@@ -15,16 +17,67 @@ public class Controlled_Player extends Player{
      * @param yPos the y position
      * @param width the width of each pixel of the player
      * @param height the height of each pixel of the player
+     * @param lives how many lives the player starts with
      */
-    public Controlled_Player(int xPos, int yPos, int width, int height){
+    public Controlled_Player(int xPos, int yPos, int width, int height, int lives){
         super(xPos, yPos, width, height);
+        this.lives = lives;
+    }
+    
+    /**
+     * Decreases the players lives by 1
+     */
+    public void loseLife(){
+        if(lives < 0){
+            lives--;
+        }
+    }
+    
+    /**
+     * Increases the players lives by 1
+     */
+    public void gainLife(){
+        lives++;
+    }
+    
+    /**
+     * Gets the players score
+     * @return the score of the player
+     */
+    public int getScore(){
+        return score;
+    }
+    
+    /**
+     * Increases the players score
+     * @param inc how much the score is increased by
+     */
+    public void incScore(int inc){
+        score += inc;
+    }
+    
+    /**
+     * Returns true if the player is dead
+     * @return whether the player is dead or not
+     */
+    public boolean isDead(){
+        if(lives <= 0){
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Shoots a projectile
+     */
+    public void shoot(){
+        //Insert code for shooting once the projectile object is done
     }
     
     /**
      * Paints the players space ship pixel by pixel
      * @param g the graphics
      */
-    @Override
     public void paint(Graphics g){
         g.setColor(Color.WHITE);
         //Line 1
@@ -122,5 +175,4 @@ public class Controlled_Player extends Player{
         g.fillRect(getXPos() + getWidth()*6, getYPos() + getHeight()*11, getWidth(), getHeight());
         g.fillRect(getXPos() + getWidth()*11, getYPos() + getHeight()*11, getWidth(), getHeight());
     }
-    
 }
