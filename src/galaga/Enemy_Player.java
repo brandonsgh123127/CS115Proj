@@ -2,12 +2,13 @@ package galaga;
 
 /**
  *
- * @author soslovic
+ * @author bspada
  */
 public class Enemy_Player extends Player{
-    
-    public Enemy_Player(int xPos, int yPos, int width, int height){
+    int health;
+    public Enemy_Player(int xPos, int yPos, int width, int height, int health){
         super(xPos, yPos, width, height);
+        this.health = health;
     }
     
 }
