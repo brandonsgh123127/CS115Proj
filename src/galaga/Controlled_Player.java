@@ -27,10 +27,8 @@ public class Controlled_Player extends Player{
     /**
      * Decreases the players lives by 1
      */
-    public void loseLife(){
-        if(lives < 0){
+    public void loseLife(){    
             lives--;
-        }
     }
     
     /**
