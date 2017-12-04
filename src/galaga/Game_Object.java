@@ -3,8 +3,11 @@ package galaga;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 
-public class Game_Object 
+public class Game_Object extends JComponent
 {
     private int x_pos;
     private int y_pos;
@@ -81,6 +84,19 @@ public class Game_Object
     public boolean out_of_bounds(int screen_width, int screen_height)
     {
         return (x_pos > screen_width || y_pos > screen_height || x_pos + width < 0 || y_pos + height < 0);
+    }
+    
+    /**
+     * Paints the image
+     * @param g the graphics
+     * @param imageName the name of the image file
+     */
+    public void paint(Graphics g, String imageName) {
+        ImageIcon icon = new ImageIcon(imageName);
+        Image img = icon.getImage();
+        Image newimg = img.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newimg);
+        icon.paintIcon(this, g, x_pos, y_pos);
     }
     
 }
