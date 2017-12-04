@@ -1,9 +1,11 @@
 package galaga;
 
 import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 
-public class Player {
+public class Player extends JComponent{
     private int xPos, yPos, width, height;
     
     /**
@@ -71,5 +73,18 @@ public class Player {
      */
     public void moveDown(){
         yPos -= getHeight();
+    }
+    
+    /**
+     * Paints the image
+     * @param g the graphics
+     * @param imageName the name of the image file
+     */
+    public void paint(Graphics g, String imageName) {
+        ImageIcon icon = new ImageIcon(imageName);
+        Image img = icon.getImage();
+        Image newimg = img.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newimg);
+        icon.paintIcon(this, g, xPos, yPos);
     }
 }

@@ -1,8 +1,4 @@
 package galaga;
-
-import java.awt.Color;
-import java.awt.Graphics;
-
 /**
  *
  * @author soslovic
@@ -51,51 +47,6 @@ public class Enemy_Player extends Player{
         return false;
     }
     
-    /**
-     * Paints the enemy sprite pixel by pixel,   NOT COMPLETE
-     * @param g the graphics
-     */
-    public void paint(Graphics g){
-        g.setColor(Color.WHITE);
-        //Line 1
-        
-        
-        //Line 2
-        
-        //Line 3
-        
-        //Line 4
-        
- 
-        //Line 5
-        
-        //Line 6
-        g.setColor(Color.BLUE);
-        
-        
-        g.setColor(Color.RED);
-        
-        g.setColor(Color.WHITE);
-        
-        //Line 7
-        g.setColor(Color.BLUE);
-        
-        g.setColor(Color.RED);
-        
-        g.setColor(Color.WHITE);
-        
-        //Line 8
-        g.setColor(Color.RED);
-        
-        g.setColor(Color.WHITE);
-        
-        //Line 9
-        
-        }
-        //Line 10
-        
-        
-        //Line 11
-    }
+}
     
     
