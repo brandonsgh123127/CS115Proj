@@ -16,8 +16,8 @@ public class Controlled_Player extends Player{
      * @param height the height of each pixel of the player
      * @param lives how many lives the player starts with
      */
-    public Controlled_Player(int xPos, int yPos, int width, int height, int lives){
-        super(xPos, yPos, width, height);
+    public Controlled_Player(int xPos, int yPos, int width, int height, int x_move, int y_move, int lives){
+        super(xPos, yPos, width, height, x_move, y_move);
         this.lives = lives;
     }
     

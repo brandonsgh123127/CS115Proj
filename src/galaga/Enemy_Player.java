@@ -14,8 +14,8 @@ public class Enemy_Player extends Player{
      * @param height the height of each pixel for the enemy
      * @param health the health of the enemy
      */
-    public Enemy_Player(int xPos, int yPos, int width, int height, int health){
-        super(xPos, yPos, width, height);
+    public Enemy_Player(int xPos, int yPos, int width, int height, int x_move, int y_move, int health){
+        super(xPos, yPos, width, height, x_move, y_move);
         this.health = health;
     }
     
