@@ -8,17 +8,17 @@ public class Game_Object
 {
     private int x_pos;
     private int y_pos;
-    private int hieght;
+    private int height;
     private int width;
     private int x_move;
     private int y_move;
     private Color color;
 
-    public Game_Object(int x_pos, int y_pos, int hieght, int width, int x_move, int y_move)
+    public Game_Object(int x_pos, int y_pos, int height, int width, int x_move, int y_move)
     {
         this.x_pos = x_pos;
         this.y_pos = y_pos;
-        this.hieght = hieght;
+        this.height = height;
         this.width = width;
         this.x_move = x_move;
         this.y_move = y_move;
@@ -30,8 +30,8 @@ public class Game_Object
     public int get_ypos() { return y_pos;}
     public void set_ypos(int y_pos) { this.y_pos = y_pos;}
 
-    public int get_hieght() { return hieght;}
-    public void set_hieght(int hieght) { this.hieght = hieght;}
+    public int get_height() { return height;}
+    public void set_height(int height) { this.height = height;}
 
     public int get_width() { return width;}
     public void set_width(int width) { this.width = width;}
@@ -70,7 +70,7 @@ public class Game_Object
     
     public void paint(Graphics g)
     {
-        g.fillRect(x_pos, y_pos, width, hieght);
+        g.fillRect(x_pos, y_pos, width, height);
     }
     
     public boolean hit(Game_Object o)
@@ -78,9 +78,9 @@ public class Game_Object
         return true;
     }
     
-    public boolean out_of_bounds(int screen_width, int screen_hieght)
+    public boolean out_of_bounds(int screen_width, int screen_height)
     {
-        return (x_pos > screen_width || y_pos > screen_hieght || x_pos + width < 0 || y_pos + hieght < 0);
+        return (x_pos > screen_width || y_pos > screen_height || x_pos + width < 0 || y_pos + height < 0);
     }
     
 }
