@@ -29,7 +29,7 @@ public class GamePanel extends JPanel{
     /*
     * Create new Controlled_Player in center bottom of screen
     */
-    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT, 20, 20,3);
+    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT, 20, 20,3,5,5);
     
     //ArrayList to count enemies
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
@@ -41,7 +41,7 @@ public class GamePanel extends JPanel{
         for(int i = 0; i <enemyNum / 2; i++){
             spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
             spawnPos[1] = 10;
-            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,1));
+            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,1,5,5));
         }
         //initialize the timer based on rate and Action Listener
         update = new Timer(rate, new AListener());
@@ -55,22 +55,7 @@ public class GamePanel extends JPanel{
     @Override
     public void paintComponent(Graphics g){
         g.setColor(Color.WHITE);
-        super.paintComponent(g);
-        
-        
-        /*
-        * If enemy collides with player, remove enemy from screen
-        */
-        for(int i =0; i < enemies.size(); i++){
-            if((p.getXPos()<=enemies.get(i).getXPos())&& (p.getYPos()<= enemies.get(i).getYPos())
-                  &&(p.getXPos() + p.getWidth() >= enemies.get(i).getXPos() && ((p.getYPos() >= (enemies.get(i).getYPos() +enemies.get(i).getHeight()))) ))
-                enemies.remove(i);
-        
-        else{
-                enemies.get(i).paint(g);
-                }
-    
-        }
+        super.paintComponent(g);   
     }
     public class AListener implements ActionListener{
      
@@ -81,19 +66,30 @@ public class GamePanel extends JPanel{
             //update counter
             counter = (counter - 1)%(GamePanel.rate / 2) / 2;
             
-         if (ControllerListener.isLeft()){ p.moveLeft(); }
-         if (ControllerListener.isRight()){ p.moveRight(); }
+         if (ControllerListener.isLeft()){ p.move_left(); }
+         if (ControllerListener.isRight()){ p.move_right(); }
             //Update current state of the game and draw
+         
+         //Checks to see if player is shooting
+         if(ControllerListener.isShooting()){p.shoot();}
+         
+
             process_collisions();
             repaint();
-            
         }
         
         
         public void process_collisions(){
+        for(int i =0; i < enemies.size(); i++){
+             if(enemies.get(i).hit(p))
+                 enemies.remove(i);
+         
+            else
+                 repaint();
+            }
             
         }
 
+}
+}
 
-}
-}

@@ -5,8 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.PixelGrabber;
+
 
 public class Game_Object extends JComponent
 {
@@ -82,15 +87,15 @@ public class Game_Object extends JComponent
                 /*
         * If enemy collides with player, remove enemy from screen
         */
-        for(int i =0; i < enemies.size(); i++){
-            if((p.get_xpos()<=x_pos)&& (p.get_ypos()<= enemies.get(i).get_ypos())
-                  &&(p.get_xpos() + p.getWidth() >= enemies.get(i).get_xpos() && ((p.get_ypos() >= (enemies.get(i).getYPos() +enemies.get(i).getHeight()))) ))
-                true;
+       
+            if((p.get_xpos()<=x_pos)&& (p.get_ypos()<= y_pos)
+                  &&(p.get_xpos() + p.getWidth() >= x_pos && ((p.get_ypos() >= (y_pos +height))) ))
+                return true;
         else{
-                enemies.get(i).paint(g);
+                return false;
                 }
     
-        }
+        
     }
     
     public boolean out_of_bounds(int screen_width, int screen_height)
@@ -113,13 +118,13 @@ public class Game_Object extends JComponent
     /*
     * returns if coordinates are empty or not in a 2d array
     */
-    public boolean[][] getCoordinates(ImageIcon icon){
-         boolean[][] coordinates = new boolean[icon.getIconWidth()][icon.getIconHeight()];
-        for(int i = 0; i < coordinates.length;i++){
-            for(int j = 0; j < coordinates[i].length;j++){
-                if(icon.)
-            }
-        }
-    }
+  //  public boolean[][] getCoordinates(ImageIcon icon){
+  //       boolean[][] coordinates = new boolean[icon.getIconWidth()][icon.getIconHeight()];
+  //      for(int i = 0; i < coordinates.length;i++){
+   //         for(int j = 0; j < coordinates[i].length;j++){
+  //              if(icon.)
+   //         }
+   //     }
+  //  }
     
 }
