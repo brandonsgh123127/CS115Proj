@@ -10,6 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Random;
 import java.util.ArrayList;
 import javax.swing.Timer;
@@ -30,13 +34,15 @@ public class GamePanel extends JPanel{
     * Create new Controlled_Player in center bottom of screen
     */
     private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT, 20, 20,3,5,5);
-    
+    Graphics p1;
     //ArrayList to count enemies
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
     /*
     *Create initial Enemies through gamepanel
     */
     public GamePanel(){
+        
+        
         //Creates spawn positions for the enemies on display
         for(int i = 0; i <enemyNum / 2; i++){
             spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
@@ -55,14 +61,18 @@ public class GamePanel extends JPanel{
     @Override
     public void paintComponent(Graphics g){
         g.setColor(Color.WHITE);
-        super.paintComponent(g);   
+        super.paintComponent(g);
+        
+        g.drawString("Score:"+Integer.toString(p.getScore()), 10, 20);
+      g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
     }
     public class AListener implements ActionListener{
      
     private int counter = 20;
     
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) { 
+            
             //update counter
             counter = (counter - 1)%(GamePanel.rate / 2) / 2;
             
