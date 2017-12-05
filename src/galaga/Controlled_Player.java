@@ -42,6 +42,13 @@ public class Controlled_Player extends Player{
     public int getScore(){
         return score;
     }
+    /**
+     * Gets the players lives
+     * @return the score of the player
+     */
+    public int getLives(){
+        return lives;
+    }
     
     /**
      * Increases the players score
