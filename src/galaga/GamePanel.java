@@ -37,6 +37,8 @@ public class GamePanel extends JPanel{
     Graphics p1;
     //ArrayList to count enemies
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
+    //ArrayList to keep track of shots
+    private ArrayList<Shot> shots = new ArrayList<Shot>();
     /*
     *Create initial Enemies through gamepanel
     */
