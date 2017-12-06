@@ -24,7 +24,7 @@ public class GamePanel extends JPanel{
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //gets dimensions of user
                                                                         //screen for fullscreen
     public final double WIDTH =  screenSize.getWidth(), HEIGHT = screenSize.getHeight() - 75;
-    public final static int rate = 32;
+    public final static int rate = 50;
     private int enemyNum = 12;
     private int[] spawnPos = new int[2]; //Keeps track of spawn positions (x,y)
     Timer update;
@@ -46,7 +46,7 @@ public class GamePanel extends JPanel{
         
         
         //Creates spawn positions for the enemies on display
-        for(int i = 0; i <enemyNum / 2; i++){
+        for(int i = 0; i <1; i++){
             spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
             spawnPos[1] = 10;
             enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,1,5,5));
@@ -75,7 +75,16 @@ public class GamePanel extends JPanel{
       {
           shots.get(i).paint(g);
       }
+    //if player doesn't have any lives, display game over
+      if(p.isDead()){
+          update.stop();
+          g.drawString("GAME OVER", (int)(WIDTH / 2), (int)(HEIGHT / 2));
+          g.drawString("Press \"ESC\" to play again...",(int) (WIDTH / 2),(int) (HEIGHT / 2) + 200);
+                  
+      }
+         
     }
+    
     public class AListener implements ActionListener{
      
     private int counter = 20;
@@ -101,15 +110,18 @@ public class GamePanel extends JPanel{
         
         public void process_collisions(){
         for(int i =0; i < enemies.size(); i++){
-             if(enemies.get(i).hit(p))
+            //checks to see if enemy hit player 
+            if(enemies.get(i).hit(p)){
                  enemies.remove(i);
-         
-            else
-                 repaint();
+                 p.loseLife();
+                 
             }
+        
+        
             
         }
 
 }
+    }
 }
 
