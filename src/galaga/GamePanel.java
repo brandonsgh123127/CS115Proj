@@ -61,6 +61,7 @@ public class GamePanel extends JPanel{
         p.paint(g, "Galaga_ship.png");
         for(int i = 0; i <enemies.size(); i++){
             enemies.get(i).paint(g, "Boss_Galaga.png");
+            enemies.get(i).move();
         } 
         g.drawString("Score:"+Integer.toString(p.getScore()), 10, 20);
       g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
@@ -81,7 +82,7 @@ public class GamePanel extends JPanel{
         for(int i = 0; i <1; i++){
             spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
             spawnPos[1] = 10;
-            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,1,5,5));
+            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,1,5,5, (int)WIDTH));
         }
         p.set_xpos((int)(WIDTH / 2));
         p.set_ypos((int) HEIGHT - 75);        
