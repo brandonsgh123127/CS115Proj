@@ -13,7 +13,7 @@ import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
 
 
-public class Game_Object extends JComponent
+public class Game_Object
 {
     private int x_pos;
     private int y_pos;
@@ -89,7 +89,7 @@ public class Game_Object extends JComponent
         */
        
             if((p.get_xpos()<=x_pos)&& (p.get_ypos()<= y_pos)
-                  &&(p.get_xpos() + p.getWidth() >= x_pos && ((p.get_ypos() >= (y_pos +height))) ))
+                  &&(p.get_xpos() + p.get_width() >= x_pos && ((p.get_ypos() >= (y_pos +height))) ))
                 return true;
         else{
                 return false;

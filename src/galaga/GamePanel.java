@@ -65,6 +65,9 @@ public class GamePanel extends JPanel{
         g.setColor(Color.WHITE);
         super.paintComponent(g);
         p.paint(g, "Galaga_ship.png");
+        for(int i = 0; i <enemies.size(); i++){
+            enemies.get(i).paint(g, "Boss_Galaga.png");
+        } 
         g.drawString("Score:"+Integer.toString(p.getScore()), 10, 20);
       g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
       
