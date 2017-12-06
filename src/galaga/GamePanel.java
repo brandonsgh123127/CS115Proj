@@ -83,7 +83,7 @@ public class GamePanel extends JPanel{
             //Update current state of the game and draw
          
          //Checks to see if player is shooting
-         if(ControllerListener.isShooting()){p.shoot();}
+         if(ControllerListener.isShooting()){p.shoot(shots);}
          
 
             process_collisions();
