@@ -113,7 +113,7 @@ public class Game_Object extends JComponent
         Image img = icon.getImage();
         Image newimg = img.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
-        icon.paintIcon(this, g, x_pos, y_pos);
+        icon.paintIcon(null, g, x_pos, y_pos);
     }
     /*
     * returns if coordinates are empty or not in a 2d array
