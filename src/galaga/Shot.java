@@ -25,5 +25,5 @@ public class Shot extends Game_Object
         move_up();
         g.fillOval(get_xpos(), get_ypos(), get_width(), get_height());
     }
-    
+ //   
 }
