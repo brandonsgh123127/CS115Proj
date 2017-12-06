@@ -28,6 +28,7 @@ public class GamePanel extends JPanel{
     private int enemyNum = 12;
     private int[] spawnPos = new int[2]; //Keeps track of spawn positions (x,y)
     Timer update;
+    private boolean isGameOver = false;
     
     
     /*
@@ -43,14 +44,7 @@ public class GamePanel extends JPanel{
     *Create initial Enemies through gamepanel
     */
     public GamePanel(){
-        
-        
-        //Creates spawn positions for the enemies on display
-        for(int i = 0; i <1; i++){
-            spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
-            spawnPos[1] = 10;
-            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,1,5,5));
-        }
+        reset();
         //initialize the timer based on rate and Action Listener
         update = new Timer(rate, new AListener());
         addKeyListener (new ControllerListener());
@@ -77,12 +71,20 @@ public class GamePanel extends JPanel{
       }
     //if player doesn't have any lives, display game over
       if(p.isDead()){
-          update.stop();
-          g.drawString("GAME OVER", (int)(WIDTH / 2), (int)(HEIGHT / 2));
-          g.drawString("Press \"ESC\" to play again...",(int) (WIDTH / 2),(int) (HEIGHT / 2) + 200);
-                  
+          reset();     
       }
          
+    }
+    public void reset(){
+        enemyNum = 12;
+         //Creates spawn positions for the enemies on display
+        for(int i = 0; i <1; i++){
+            spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
+            spawnPos[1] = 10;
+            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,1,5,5));
+        }
+        p.set_xpos((int)(WIDTH / 2));
+        p.set_ypos((int) HEIGHT - 75);        
     }
     
     public class AListener implements ActionListener{
