@@ -33,7 +33,7 @@ public class GamePanel extends JPanel{
     /*
     * Create new Controlled_Player in center bottom of screen
     */
-    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT, 20, 20,3,5,5);
+    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT /2, 20, 20,3,5,5);
     Graphics p1;
     //ArrayList to count enemies
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
@@ -62,7 +62,7 @@ public class GamePanel extends JPanel{
     public void paintComponent(Graphics g){
         g.setColor(Color.WHITE);
         super.paintComponent(g);
-        
+        p.paint(g, "Galaga_ship.png");
         g.drawString("Score:"+Integer.toString(p.getScore()), 10, 20);
       g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
     }
