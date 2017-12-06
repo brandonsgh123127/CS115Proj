@@ -67,6 +67,11 @@ public class GamePanel extends JPanel{
         p.paint(g, "Galaga_ship.png");
         g.drawString("Score:"+Integer.toString(p.getScore()), 10, 20);
       g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
+      
+      for(int i =0; i < shots.size(); i++)
+      {
+          shots.get(i).paint(g);
+      }
     }
     public class AListener implements ActionListener{
      
