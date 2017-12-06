@@ -23,7 +23,7 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel{ 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //gets dimensions of user
                                                                         //screen for fullscreen
-    public final double WIDTH =  screenSize.getWidth(), HEIGHT = screenSize.getHeight();
+    public final double WIDTH =  screenSize.getWidth(), HEIGHT = screenSize.getHeight() - 75;
     public final static int rate = 32;
     private int enemyNum = 12;
     private int[] spawnPos = new int[2]; //Keeps track of spawn positions (x,y)
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel{
     /*
     * Create new Controlled_Player in center bottom of screen
     */
-    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT /2, 20, 20,3,5,5);
+    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT - 75, (int)(WIDTH / 50.0), (int)(WIDTH / 50.0),3,5,5);
     Graphics p1;
     //ArrayList to count enemies
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
