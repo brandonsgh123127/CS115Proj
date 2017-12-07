@@ -30,6 +30,8 @@ public class GamePanel extends JPanel{
     Timer update;
     private boolean isGameOver = false;
     
+    private int enemy_speed = 5;
+    
     
     /*
     * Create new Controlled_Player in center bottom of screen
@@ -76,15 +78,20 @@ public class GamePanel extends JPanel{
          
     }
     public void reset(){
-        enemyNum = 12;
+        if(enemies.size()>0)
+        {
+            p.setScore(0);
+            p.setLives(5);
+            enemy_speed=5;
+        }
          //Creates spawn positions for the enemies on display
         for(int i = 0; i <1; i++){
             spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
             spawnPos[1] = 10;
-            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,5,5,5, (int)WIDTH));
+            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,enemy_speed,5,5, (int)WIDTH));
         }
         p.set_xpos((int)(WIDTH / 2));
-        p.set_ypos((int) HEIGHT - 75);        
+        p.set_ypos((int) HEIGHT - 75); 
     }
     
     public class AListener implements ActionListener{
@@ -110,29 +117,37 @@ public class GamePanel extends JPanel{
         }
         
         
-        public void process_collisions(){
-        for(int i =0; i < enemies.size(); i++){
-            //checks to see if enemy hit player 
-            if(enemies.get(i).hit(p)){
-                enemies.remove(i);
-                p.loseLife();
-            }   
-            //checks to see if shot hit enemy
-            for(int j=0; j < shots.size(); j++)
+        public void process_collisions()
+        {
+            for(int i =0; i < enemies.size(); i++)
             {
-                if(enemies.get(i).hit(shots.get(j)))
+                //checks to see if enemy hit player 
+                if(enemies.get(i).hit(p)){
+                    enemies.remove(i);
+                    p.loseLife();
+                }   
+                //checks to see if shot hit enemy
+                for(int j=0; j < shots.size(); j++)
                 {
-                    enemies.get(i).setHealth(enemies.get(i).getHealth()-1);
-                    shots.remove(j);
+                    if(enemies.get(i).hit(shots.get(j)))
+                    {
+                        enemies.get(i).setHealth(enemies.get(i).getHealth()-1);
+                        shots.remove(j);
+                    }
+                }
+                //checks to see if enemy is dead 
+                if(enemies.get(i).isDead())
+                {
+                    enemies.remove(i);
                 }
             }
-            //checks to see if enemy is dead 
-            if(enemies.get(i).isDead())
-            {
-                enemies.remove(i);
-            }
         }
-}
+        
+        public void level_up()
+        {
+            reset();
+            enemy_speed+=5;
+        }
     }
 }
 
