@@ -113,15 +113,24 @@ public class GamePanel extends JPanel{
         for(int i =0; i < enemies.size(); i++){
             //checks to see if enemy hit player 
             if(enemies.get(i).hit(p)){
-                 enemies.remove(i);
-                 p.loseLife();
-                 
+                enemies.remove(i);
+                p.loseLife();
+            }   
+            //checks to see if shot hit enemy
+            for(int j=0; j < shots.size(); j++)
+            {
+                if(enemies.get(i).hit(shots.get(j)))
+                {
+                    enemies.get(i).setHealth(enemies.get(i).getHealth()-1);
+                    shots.remove(j);
+                }
             }
-        
-        //
-            
+            //checks to see if enemy is dead 
+            if(enemies.get(i).isDead())
+            {
+                enemies.remove(i);
+            }
         }
-
 }
     }
 }
