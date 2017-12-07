@@ -51,6 +51,14 @@ public class Controlled_Player extends Player{
     public int getLives(){
         return lives;
     }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
     
     /**
      * Increases the players score
