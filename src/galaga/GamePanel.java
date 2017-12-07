@@ -31,8 +31,9 @@ public class GamePanel extends JPanel{
     private boolean isGameOver = false;
     
     private int enemy_speed = 5;
-    public final static int LEVELS = 5;
+    public final static int LEVELS = 2;
     private int level = 1;
+    Timer restart;
     
     
     /*
@@ -47,7 +48,7 @@ public class GamePanel extends JPanel{
     *Create initial Enemies through gamepanel
     */
     public GamePanel(){
-        reset();
+        reset_enemies();
         //initialize the timer based on RATE and Action Listener
         update = new Timer(RATE, new AListener());
         addKeyListener (new ControllerListener());
@@ -77,40 +78,31 @@ public class GamePanel extends JPanel{
         {
             shots.get(i).paint(g);
         }
-        //if player doesn't have any lives, display game over
-        if(p.isDead())
+        //if player doesn't have any lives, display game over or if they beat all the levels
+        if(p.isDead() || (enemies.size() <= 0 && level >= LEVELS))
         {
-            game_over(g);     
-        }
-        if(enemies.size() <= 0)
-        {
-            if(level < LEVELS)
-            {
-                level_up();
-                level++;
-            }
-            else
-            {
-                game_over(g);
-            }
+            game_over(g);
         }     
     }
     
     public void reset(){
-        if(enemies.size()>0)
-        {
-            p.setScore(0);
-            p.setLives(5);
-            enemy_speed=5;
-        }
+        p.setScore(0);
+        p.setLives(5);
+        level = 1;
+        enemy_speed=5;
+        
+        p.set_xpos((int)(WIDTH / 2));
+        p.set_ypos((int) HEIGHT - 75); 
+    }
+    
+    public void reset_enemies()
+    {
          //Creates spawn positions for the enemies on display
         for(int i = 0; i <1; i++){
             spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
             spawnPos[1] = 10;
             enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,enemy_speed,5,5, (int)WIDTH));
         }
-        p.set_xpos((int)(WIDTH / 2));
-        p.set_ypos((int) HEIGHT - 75); 
     }
     
     public class AListener implements ActionListener{
@@ -123,13 +115,41 @@ public class GamePanel extends JPanel{
             //update counter
             counter = (counter - 1)%(GamePanel.RATE / 2) / 2;
             
-         if (ControllerListener.isLeft()){ p.move_left(); }
-         if (ControllerListener.isRight()){ p.move_right(); }
+         if (ControllerListener.isLeft())
+         {
+            if(update.isRunning())
+            {
+                p.move_left(); 
+            }
+         }
+         if (ControllerListener.isRight())
+         {
+            if(update.isRunning())
+            {
+                p.move_right();
+            } 
+         }
             //Update current state of the game and draw
          
          //Checks to see if player is shooting
-         if(ControllerListener.isShooting()){p.shoot(shots);}
+         if(ControllerListener.isShooting())
+         {
+            if(update.isRunning())
+            {
+                p.shoot(shots);
+            }
+         }
          
+         if(ControllerListener.isRestarted())
+         {
+            if(restart.isRunning())
+            {
+                reset();
+                reset_enemies();
+                restart.stop();
+                update.start();
+            }
+         }
 
             process_collisions();
             repaint();
@@ -162,12 +182,17 @@ public class GamePanel extends JPanel{
                     enemies.remove(i);
                     p.incScore(50);
                 }
+                if(enemies.size() <= 0 && level < LEVELS)
+                {
+                    level_up();
+                    level++;
+                }
             }
         }
         
         public void level_up()
         {
-            reset();
+            reset_enemies();
             enemy_speed+=5;
         }
         
@@ -175,8 +200,10 @@ public class GamePanel extends JPanel{
         {
             update.stop();
             g.drawString("Game Over", (int)WIDTH/2, (int)HEIGHT/4);
-            g.drawString("Press Esc to play again...", (int)WIDTH/2, (int)HEIGHT/2);
+            g.drawString("Press Enter to play again...", (int)WIDTH/2, (int)HEIGHT/2);
             g.drawString("SCORE:"+ p.getScore(), (int)WIDTH/2, (int)(HEIGHT/4)+(int)(HEIGHT/8));
+            restart = new Timer(RATE, new AListener());
+            restart.start();
         }
 }
 
