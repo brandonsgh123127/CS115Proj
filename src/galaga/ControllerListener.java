@@ -18,7 +18,7 @@ public class ControllerListener implements KeyListener {
                     LEFT = KeyEvent.VK_LEFT,   //used to move left
                     RIGHT = KeyEvent.VK_RIGHT,  //used to move right
                     SHOOT = KeyEvent.VK_SPACE, //used to switch the player between attack and defense
-                    ESCAPE = KeyEvent.VK_ENTER;  //used for menu entering, ect
+                    RESTART = KeyEvent.VK_ENTER;  //used for menu entering, ect
    
     @Override
     public void keyPressed(KeyEvent e) {
@@ -32,7 +32,7 @@ public class ControllerListener implements KeyListener {
             case SHOOT:
                key_pressed[2] = true;
                break;
-            case ESCAPE:
+            case RESTART:
                key_pressed[3] = true;
                break;
          }
@@ -50,7 +50,7 @@ public class ControllerListener implements KeyListener {
             case SHOOT:
                key_pressed[2] = false;
                break;
-            case ESCAPE:
+            case RESTART:
                key_pressed[3] = false;
                break;
          }
@@ -64,5 +64,5 @@ public class ControllerListener implements KeyListener {
     public static boolean isLeft(){return key_pressed[0];}
     public static boolean isRight(){return key_pressed[1];}
     public static boolean isShooting(){return key_pressed[2];}
-    public static boolean isPaused(){return key_pressed[3];}
+    public static boolean isRestarted(){return key_pressed[3];}
 }
