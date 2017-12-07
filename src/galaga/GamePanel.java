@@ -99,8 +99,8 @@ public class GamePanel extends JPanel{
     private int counter = 20;
     
         @Override
-        public void actionPerformed(ActionEvent e) { 
-            
+        public void actionPerformed(ActionEvent e)
+        {  
             //update counter
             counter = (counter - 1)%(GamePanel.rate / 2) / 2;
             
