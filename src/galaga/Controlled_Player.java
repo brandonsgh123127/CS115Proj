@@ -77,7 +77,7 @@ public class Controlled_Player extends Player{
     public void shoot(ArrayList<Shot> shots)
     {
         //Insert code for shooting once the projectile object is done
-        shots.add(new Shot(get_xpos(),get_ypos(),10,10,0,30)); //
+        shots.add(new Shot(get_xpos()+(get_width()/2),get_ypos(),10,10,0,30)); 
     }
     
 }
