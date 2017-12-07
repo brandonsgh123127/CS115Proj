@@ -53,6 +53,10 @@ public class Enemy_Player extends Player{
     public int getHealth(){
         return health;
     }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
     
     /**
      * Decreases the enemy's health
