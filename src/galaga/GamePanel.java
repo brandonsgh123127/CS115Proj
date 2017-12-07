@@ -24,13 +24,15 @@ public class GamePanel extends JPanel{
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //gets dimensions of user
                                                                         //screen for fullscreen
     public final double WIDTH =  screenSize.getWidth(), HEIGHT = screenSize.getHeight() - 75;
-    public final static int rate = 50;
+    public final static int RATE = 50;
     private int enemyNum = 12;
     private int[] spawnPos = new int[2]; //Keeps track of spawn positions (x,y)
     Timer update;
     private boolean isGameOver = false;
     
     private int enemy_speed = 5;
+    public final static int LEVELS = 5;
+    private int level = 1;
     
     
     /*
@@ -46,8 +48,8 @@ public class GamePanel extends JPanel{
     */
     public GamePanel(){
         reset();
-        //initialize the timer based on rate and Action Listener
-        update = new Timer(rate, new AListener());
+        //initialize the timer based on RATE and Action Listener
+        update = new Timer(RATE, new AListener());
         addKeyListener (new ControllerListener());
       setPreferredSize (new Dimension((int)WIDTH, (int)HEIGHT));
       setBackground (Color.black);
@@ -55,28 +57,45 @@ public class GamePanel extends JPanel{
       //starts the updating
       update.start(); 
     }
+    
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g)
+    {
         g.setColor(Color.WHITE);
         super.paintComponent(g);
         p.paint(g, "Galaga_ship.png");
-        for(int i = 0; i <enemies.size(); i++){
+        for(int i = 0; i <enemies.size(); i++)
+        {
             enemies.get(i).move();
             enemies.get(i).paint(g, "Boss_Galaga.png");
         } 
         g.drawString("Score:"+Integer.toString(p.getScore()), 10, 20);
-      g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
+        g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
+        g.drawString("Level:"+level, 10, 60);
       
-      for(int i =0; i < shots.size(); i++)
-      {
-          shots.get(i).paint(g);
-      }
-    //if player doesn't have any lives, display game over
-      if(p.isDead()){
-          reset();     
-      }
-         
+        for(int i =0; i < shots.size(); i++)
+        {
+            shots.get(i).paint(g);
+        }
+        //if player doesn't have any lives, display game over
+        if(p.isDead())
+        {
+            game_over(g);     
+        }
+        if(enemies.size() <= 0)
+        {
+            if(level < LEVELS)
+            {
+                level_up();
+                level++;
+            }
+            else
+            {
+                game_over(g);
+            }
+        }     
     }
+    
     public void reset(){
         if(enemies.size()>0)
         {
@@ -102,7 +121,7 @@ public class GamePanel extends JPanel{
         public void actionPerformed(ActionEvent e)
         {  
             //update counter
-            counter = (counter - 1)%(GamePanel.rate / 2) / 2;
+            counter = (counter - 1)%(GamePanel.RATE / 2) / 2;
             
          if (ControllerListener.isLeft()){ p.move_left(); }
          if (ControllerListener.isRight()){ p.move_right(); }
@@ -116,7 +135,7 @@ public class GamePanel extends JPanel{
             repaint();
         }
         
-        
+    }    
         public void process_collisions()
         {
             for(int i =0; i < enemies.size(); i++)
@@ -144,10 +163,6 @@ public class GamePanel extends JPanel{
                     p.incScore(50);
                 }
             }
-            if(enemies.size() <= 0)
-            {
-                level_up();
-            }
         }
         
         public void level_up()
@@ -155,6 +170,13 @@ public class GamePanel extends JPanel{
             reset();
             enemy_speed+=5;
         }
-    }
+        
+        public void game_over(Graphics g)
+        {
+            update.stop();
+            g.drawString("Game Over", (int)WIDTH/2, (int)HEIGHT/4);
+            g.drawString("Press Esc to play again...", (int)WIDTH/2, (int)HEIGHT/2);
+            g.drawString("SCORE:"+ p.getScore(), (int)WIDTH/2, (int)(HEIGHT/4)+(int)(HEIGHT/8));
+        }
 }
 
