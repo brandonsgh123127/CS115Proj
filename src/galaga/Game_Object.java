@@ -84,17 +84,9 @@ public class Game_Object
     
     public boolean hit(Game_Object p)
     {
-                /*
-        * If enemy collides with player, remove enemy from screen
-        */
-       
-            if((p.get_xpos()<=x_pos)&& (p.get_ypos()<= y_pos)
-                  &&(p.get_xpos() + p.get_width() >= x_pos && ((p.get_ypos() >= (y_pos +height))) ))
-                return true;
-        else{
-                return false;
-                }
-    
+        return((p.get_xpos() <= x_pos || p.get_xpos() - p.get_width() <= x_pos) && 
+            (p.get_ypos() <= y_pos || p.get_ypos() - height <= y_pos) && 
+            p.get_xpos() + p.get_width() >= x_pos && p.get_ypos() + p.get_height() >= y_pos);
         
     }
     
