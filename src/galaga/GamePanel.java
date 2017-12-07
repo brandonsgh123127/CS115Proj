@@ -133,13 +133,20 @@ public class GamePanel extends JPanel{
                     {
                         enemies.get(i).setHealth(enemies.get(i).getHealth()-1);
                         shots.remove(j);
+                        p.incScore(50);
+                        
                     }
                 }
                 //checks to see if enemy is dead 
                 if(enemies.get(i).isDead())
                 {
                     enemies.remove(i);
+                    p.incScore(50);
                 }
+            }
+            if(enemies.size() <= 0)
+            {
+                level_up();
             }
         }
         
