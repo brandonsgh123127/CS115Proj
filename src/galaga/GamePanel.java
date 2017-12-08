@@ -122,15 +122,18 @@ public class GamePanel extends JPanel{
             if (ControllerListener.isLeft())
             {
                 if(update.isRunning())
-                {
+                {   if(p.get_xpos() - p.get_xmove() >= 0){
                     p.move_left(); 
+                }
                 }
             }
             if (ControllerListener.isRight())
             {
                 if(update.isRunning())
                 {
-                    p.move_right();
+                    if(p.get_xpos() + p.get_xmove() + p.get_width() < WIDTH - 8){
+                        p.move_right();
+                    }
                 } 
             }
          
