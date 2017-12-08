@@ -84,10 +84,14 @@ public class Game_Object
     
     public boolean hit(Game_Object p)
     {
-        return((p.get_xpos() <= x_pos || p.get_xpos() - p.get_width() <= x_pos) && 
-            (p.get_ypos() <= y_pos || p.get_ypos() - height <= y_pos) && 
-            p.get_xpos() + p.get_width() >= x_pos && p.get_ypos() + p.get_height() >= y_pos);
-        
+        for(int x = 0; x <= this.get_width(); x++){
+            for(int y = 0; y <= this.get_height(); y++){
+                if(x + this.get_xpos() == p.get_xpos() && y + this.get_ypos() == p.get_ypos() ){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     public boolean out_of_bounds(int screen_width, int screen_height)
