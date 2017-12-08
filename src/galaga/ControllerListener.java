@@ -23,6 +23,7 @@ public class ControllerListener implements KeyListener {
     
     @Override
     public void keyPressed(KeyEvent e) {
+        key_pressed[2]= false;
         switch (e.getKeyCode()){
             case LEFT:
                key_pressed[0] = true;
@@ -31,10 +32,8 @@ public class ControllerListener implements KeyListener {
                key_pressed[1] = true;
                break;
             case SHOOT:
-                if(!pressed)
+                if(!isPressed())
                     key_pressed[2] = true;
-                else
-                    key_pressed[2]= false;
                     break;
             case RESTART:
                key_pressed[3] = true;
