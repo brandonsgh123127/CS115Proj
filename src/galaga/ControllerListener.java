@@ -19,7 +19,8 @@ public class ControllerListener implements KeyListener {
                     RIGHT = KeyEvent.VK_RIGHT,  //used to move right
                     SHOOT = KeyEvent.VK_SPACE, //used to switch the player between attack and defense
                     RESTART = KeyEvent.VK_ENTER;  //used for menu entering, ect
-   
+   private static boolean pressed = false;
+    
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
@@ -30,8 +31,11 @@ public class ControllerListener implements KeyListener {
                key_pressed[1] = true;
                break;
             case SHOOT:
-               key_pressed[2] = true;
-               break;
+                if(!pressed)
+                    key_pressed[2] = true;
+                else
+                    key_pressed[2]= false;
+                    break;
             case RESTART:
                key_pressed[3] = true;
                break;
@@ -49,6 +53,7 @@ public class ControllerListener implements KeyListener {
                break;
             case SHOOT:
                key_pressed[2] = false;
+               pressed = false;
                break;
             case RESTART:
                key_pressed[3] = false;
@@ -65,4 +70,6 @@ public class ControllerListener implements KeyListener {
     public static boolean isRight(){return key_pressed[1];}
     public static boolean isShooting(){return key_pressed[2];}
     public static boolean isRestarted(){return key_pressed[3];}
+    public static boolean isPressed(){return pressed;}
+    public static void setPressed(boolean b){pressed = b;}
 }
