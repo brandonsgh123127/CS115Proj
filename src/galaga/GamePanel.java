@@ -39,7 +39,7 @@ public class GamePanel extends JPanel{
     /*
     * Create new Controlled_Player in center bottom of screen
     *///
-    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT - 75, (int)WIDTH / 30, (int)WIDTH / 30 ,15,0,5);
+    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT - 75, (int)WIDTH / 30, (int)WIDTH / 30 ,15,0,3);
     //ArrayList to count enemies
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
     //ArrayList to keep track of shots
@@ -104,7 +104,7 @@ public class GamePanel extends JPanel{
         {   
             spawnPos[0] = (int)(WIDTH/30)*2*i;
             spawnPos[1] = 10;
-            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, 3, (int)WIDTH));
+            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, 1, (int)WIDTH));
         }
     }
     
