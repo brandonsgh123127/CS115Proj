@@ -113,7 +113,6 @@ public class GamePanel extends JPanel{
         {   
             spawnPos[0] = (int)(WIDTH/30)*2*i;
             spawnPos[1] = 10;
-            //If there are 6 enemies
                 enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, level, (int)WIDTH));
         }
     }
@@ -144,11 +143,12 @@ public class GamePanel extends JPanel{
             }
          
             //Checks to see if player is shooting
-            if((ControllerListener.isShooting() == true))
+            if((ControllerListener.isShooting() && !ControllerListener.isPressed()))
             {
                 if(update.isRunning())
                 {
                     p.shoot(shots);
+                    
                 }
             }
          
