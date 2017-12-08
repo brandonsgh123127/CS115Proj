@@ -39,7 +39,7 @@ public class GamePanel extends JPanel{
     /*
     * Create new Controlled_Player in center bottom of screen
     *///
-    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT - 75, (int)(WIDTH / 50.0), (int)(WIDTH / 50.0),15,0,5);
+    private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT - 75, (int)WIDTH / 30, (int)WIDTH / 30 ,15,0,5);
     //ArrayList to count enemies
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
     //ArrayList to keep track of shots
@@ -67,9 +67,9 @@ public class GamePanel extends JPanel{
         super.paintComponent(g);
         p.paint(g, "Galaga_ship.png");
         for(int i = 0; i <enemies.size(); i++)
-        {
+        {   
+            enemies.get(i).paint(g, "Boss_Galage.png");
             enemies.get(i).move();
-            enemies.get(i).paint(g, "Boss_Galaga.png");
         } 
         g.drawString("Score:"+Integer.toString(p.getScore()), 10, 20);
         g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
@@ -100,11 +100,11 @@ public class GamePanel extends JPanel{
     public void reset_enemies()
     {
          //Creates spawn positions for the enemies on display
-        for(int i = 0; i <1; i++)
-        {
-            spawnPos[0] = (int)(WIDTH / (enemyNum / (i + 1)));
+        for(int i = 0; i <enemyNum; i++)
+        {   
+            spawnPos[0] = (int)(WIDTH/30)*2*i;
             spawnPos[1] = 10;
-            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],15,15,enemy_speed,5,5, (int)WIDTH));
+            enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, 3, (int)WIDTH));
         }
     }
     
