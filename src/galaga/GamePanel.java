@@ -104,7 +104,7 @@ public class GamePanel extends JPanel{
     
     public void reset_enemies()
     {
-        if(enemyNum < 26){
+        if(enemyNum < 24){
         enemyNum += 2;
         }
         else   //reset the round
@@ -118,8 +118,8 @@ public class GamePanel extends JPanel{
             boolean moveRight = true;
             spawnPos[0] = (int)(WIDTH/30)*2*i;
             spawnPos[1] = 10;
-            if(i > 13){
-                spawnPos[0] = (int)(WIDTH/30)*2*(27- i);
+            if(i > 12){
+                spawnPos[0] = (int)(WIDTH/30)*2*(25- i);
                 spawnPos[1] = 10 + (int) WIDTH/25;
                 moveRight = false;
             }
