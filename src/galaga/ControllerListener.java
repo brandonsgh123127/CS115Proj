@@ -34,7 +34,7 @@ public class ControllerListener implements KeyListener {
             case SHOOT:
                 if(!isPressed())
                     key_pressed[2] = true;
-                    break;
+                break;
             case RESTART:
                key_pressed[3] = true;
                break;
