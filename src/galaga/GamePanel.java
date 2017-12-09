@@ -29,7 +29,7 @@ public class GamePanel extends JPanel{
     private int[] spawnPos = new int[2]; //Keeps track of spawn positions (x,y)
     Timer update;
     private boolean isGameOver = false;
-    
+    public Random r = new Random();
     
     private int enemy_speed = 5;
     public final static int LEVELS = 10;
@@ -43,6 +43,10 @@ public class GamePanel extends JPanel{
     private Controlled_Player p = new Controlled_Player((int)(WIDTH / 2),(int) HEIGHT - 75, (int)WIDTH / 30, (int)WIDTH / 30 ,15,0,3);
     //ArrayList to count enemies
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
+    //The powerup object. It will use polymorphism to switch between powerups
+    private Powerup powerup;
+    private Triple_Shot ts = new Triple_Shot((int)WIDTH, (int)HEIGHT);
+    private Extra_Life el = new Extra_Life((int)WIDTH, (int)HEIGHT);
     //ArrayList to keep track of shots
     private ArrayList<Shot> shots = new ArrayList<Shot>();
     /*
@@ -75,7 +79,7 @@ public class GamePanel extends JPanel{
         g.drawString("Score:"+Integer.toString(p.getScore()), 10, 20);
         g.drawString("Lives:"+Integer.toString(p.getLives()), 10, 40);
         g.drawString("Level:"+level, 10, 60);
-      
+        
         for(int i =0; i < shots.size(); i++)
         {
             shots.get(i).paint(g);
