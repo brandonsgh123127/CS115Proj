@@ -31,8 +31,9 @@ public class GamePanel extends JPanel{
     private boolean isGameOver = false;
     public Random r = new Random();
     
+    private int enemy_health = 1;
     private int enemy_speed = 5;
-    public final static int LEVELS = 10;
+    public final static int LEVELS = 30;
     private int level = 1;
     Timer restart;
     
@@ -105,12 +106,13 @@ public class GamePanel extends JPanel{
     public void reset_enemies()
     {
         if(enemyNum < 24){
-        enemyNum += 2;
+        enemyNum += 12;
         }
         else   //reset the round
         {
-            enemyNum = 6;
-            level+=1;
+            enemyNum = 12;
+            enemy_health++;
+            enemy_speed++;
         }
          //Creates spawn positions for the enemies on display
         for(int i = 0; i < enemyNum; i++)
@@ -123,7 +125,7 @@ public class GamePanel extends JPanel{
                 spawnPos[1] = 10 + (int) WIDTH/25;
                 moveRight = false;
             }
-                enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, level, (int)WIDTH, moveRight));
+                enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, enemy_health, (int)WIDTH, moveRight));
         }
     }
     public class AListener implements ActionListener
@@ -222,7 +224,6 @@ public class GamePanel extends JPanel{
     public void level_up()
     {
         reset_enemies();
-        enemy_speed+=5;
     }
         
     public void game_over(Graphics g)
