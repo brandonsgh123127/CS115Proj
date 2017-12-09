@@ -25,7 +25,7 @@ public class GamePanel extends JPanel{
                                                                         //screen for fullscreen
     public final double WIDTH =  screenSize.getWidth(), HEIGHT = screenSize.getHeight() - 75;
     public final static int RATE = 50;
-    private int enemyNum = 12;
+    private int enemyNum = 10;
     private int[] spawnPos = new int[2]; //Keeps track of spawn positions (x,y)
     Timer update;
     private boolean isGameOver = false;
@@ -100,7 +100,7 @@ public class GamePanel extends JPanel{
     
     public void reset_enemies()
     {
-        if(enemyNum < 20){
+        if(enemyNum < 26){
         enemyNum += 2;
         }
         else   //reset the round
@@ -109,11 +109,17 @@ public class GamePanel extends JPanel{
             level+=1;
         }
          //Creates spawn positions for the enemies on display
-        for(int i = 0; i <enemyNum; i++)
+        for(int i = 0; i < enemyNum; i++)
         {   
+            boolean moveRight = true;
             spawnPos[0] = (int)(WIDTH/30)*2*i;
             spawnPos[1] = 10;
-                enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, level, (int)WIDTH));
+            if(i > 13){
+                spawnPos[0] = (int)(WIDTH/30)*2*(27- i);
+                spawnPos[1] = 10 + (int) WIDTH/25;
+                moveRight = false;
+            }
+                enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, level, (int)WIDTH, moveRight));
         }
     }
     public class AListener implements ActionListener
@@ -130,15 +136,21 @@ public class GamePanel extends JPanel{
             if (ControllerListener.isLeft())
             {
                 if(update.isRunning())
-                {
-                    p.move_left(); 
+                {   
+                    //Makes it so the player can't go off the screen to the left
+                    if(p.get_xpos() - p.get_xmove() >= 0){
+                        p.move_left(); 
+                    }
                 }
             }
             if (ControllerListener.isRight())
             {
                 if(update.isRunning())
                 {
-                    p.move_right();
+                    //Makes it so the player can't go off the screen to the right
+                    if(p.get_xpos() + p.get_width() + p.get_xmove() < WIDTH - 8){
+                        p.move_right();
+                    }
                 } 
             }
          
