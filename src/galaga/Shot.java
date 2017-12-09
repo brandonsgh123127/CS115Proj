@@ -23,6 +23,6 @@ public class Shot extends Game_Object
     public void paint(Graphics g)
     {
         move_up();
-        g.fillOval(get_xpos(), get_ypos(), get_width(), get_height());
+        this.paint(g, "Bullet.png");
     }   
 }
