@@ -6,7 +6,8 @@ package galaga;
 public class Enemy_Player extends Player{
     private int health; //The number of hits it takes to kill the enemy
     private final int screenWidth;
-    private boolean moveRight = true;
+    private boolean moveRight;
+    
     /**
      * The constructor for the Enemy_Player object
      * @param xPos the enemy's starting x position
@@ -15,10 +16,11 @@ public class Enemy_Player extends Player{
      * @param height the height of each pixel for the enemy
      * @param health the health of the enemy
      */
-    public Enemy_Player(int xPos, int yPos, int width, int height, int x_move, int y_move, int health, int screenWidth){
+    public Enemy_Player(int xPos, int yPos, int width, int height, int x_move, int y_move, int health, int screenWidth, boolean moveRight){
         super(xPos, yPos, width, height, x_move, y_move);
         this.health = health;
         this.screenWidth = screenWidth;
+        this.moveRight = moveRight;
     }
     
     /**
