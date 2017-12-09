@@ -25,7 +25,7 @@ public class GamePanel extends JPanel{
                                                                         //screen for fullscreen
     public final double WIDTH =  screenSize.getWidth(), HEIGHT = screenSize.getHeight() - 75;
     public final static int RATE = 50;
-    private int enemyNum = 10;
+    private int enemyNum = 6;
     private int[] spawnPos = new int[2]; //Keeps track of spawn positions (x,y)
     Timer update;
     private boolean isGameOver = false;
@@ -106,7 +106,7 @@ public class GamePanel extends JPanel{
     public void reset_enemies()
     {
         if(enemyNum < 24){
-        enemyNum += 12;
+        enemyNum += 6;
         }
         else   //reset the round
         {
