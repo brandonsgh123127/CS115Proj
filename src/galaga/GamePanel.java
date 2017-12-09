@@ -236,4 +236,3 @@ public class GamePanel extends JPanel{
         restart.start();
     }
 }
-
