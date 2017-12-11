@@ -107,6 +107,7 @@ public class GamePanel extends JPanel{
     {
         if(enemyNum < 24){
         enemyNum += 6;
+        enemy_speed += 3;
         }
         else   //reset the round
         {
