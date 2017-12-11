@@ -161,7 +161,7 @@ public class GamePanel extends JPanel{
             }
          
             //Checks to see if player is shooting
-            if((ControllerListener.isShooting() && !ControllerListener.isPressed()))
+            if((ControllerListener.isShooting()))
             {
                 if(update.isRunning())
                 {
