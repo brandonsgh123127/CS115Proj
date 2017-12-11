@@ -33,7 +33,12 @@ public class ControllerListener implements KeyListener {
                break;
             case SHOOT:
                 if(!isPressed())
+                {
                     key_pressed[2] = true;
+                    pressed = true;
+                }
+                else
+                    key_pressed[2] = false;
                 break;
             case RESTART:
                key_pressed[3] = true;
