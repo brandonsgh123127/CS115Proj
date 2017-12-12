@@ -79,6 +79,11 @@ public class Enemy_Player extends Player{
         }
         return false;
     }
+    public void resetPos(int xPos, int yPos){
+        super.set_xpos(xPos);
+        super.set_ypos(yPos);
+        
+    }
     
 }
     

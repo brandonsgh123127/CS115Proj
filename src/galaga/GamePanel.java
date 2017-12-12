@@ -32,7 +32,7 @@ public class GamePanel extends JPanel{
     public Random r = new Random();
     
     private int enemy_health = 1;
-    private int enemy_speed = 5;
+    private int enemy_speed = 50;
     public final static int LEVELS = 30;
     private int level = 1;
     Timer restart;
@@ -102,6 +102,13 @@ public class GamePanel extends JPanel{
         p.set_xpos((int)(WIDTH / 2));
         p.set_ypos((int) HEIGHT - 75); 
     }
+    public void resetLevel()
+    {
+        update.stop();
+        p.loseLife();
+        //reset enemies, but don't change enemy count
+        reset_enemyRound(enemies);
+    }
     
     public void reset_enemies()
     {
@@ -127,6 +134,22 @@ public class GamePanel extends JPanel{
                 moveRight = false;
             }
                 enemies.add(new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, enemy_health, (int)WIDTH, moveRight));
+        }
+    }
+    //For use when the player loses a life, repositions enemies back to where they were.
+    public void reset_enemyRound(ArrayList<Enemy_Player> e){
+        //Creates spawn positions for the enemies on display
+        for(int i = 0; i < enemyNum; i++)
+        {   
+            boolean moveRight = true;
+            spawnPos[0] = (int)(WIDTH/30)*2*i;
+            spawnPos[1] = 10;
+            if(i > 12){
+                spawnPos[0] = (int)(WIDTH/30)*2*(25- i);
+                spawnPos[1] = 10 + (int) WIDTH/25;
+                moveRight = false;
+            }
+                enemies.set(i,new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, enemy_health, (int)WIDTH, moveRight));
         }
     }
     public class AListener implements ActionListener
@@ -195,8 +218,11 @@ public class GamePanel extends JPanel{
             //checks to see if enemy hit player 
             if(enemies.get(i).hit(p))
             {
-                enemies.remove(i);
-                p.loseLife();
+                //enemies.remove(i);
+                
+                resetLevel();
+                update.start();
+                
             }   
             //checks to see if shot hit enemy
             for(int j=0; j < shots.size(); j++)
