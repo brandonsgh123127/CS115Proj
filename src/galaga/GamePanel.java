@@ -46,6 +46,11 @@ public class GamePanel extends JPanel{
     private ArrayList<Enemy_Player> enemies = new ArrayList<Enemy_Player>();
     //The powerup object. It will use polymorphism to switch between powerups
     private Powerup powerup;
+    boolean canPowerup = false;
+    long startTime;
+    long endTime;  //used for powerup endtime;
+    
+    
     private Triple_Shot ts = new Triple_Shot((int)WIDTH, (int)HEIGHT);
     private Extra_Life el = new Extra_Life((int)WIDTH, (int)HEIGHT);
     //ArrayList to keep track of shots
@@ -84,14 +89,31 @@ public class GamePanel extends JPanel{
         for(int i =0; i < shots.size(); i++)
         {
             shots.get(i).paint(g);
-        }
+        }powerup = ts;
+                    powerup.paint(g,"Triple_shot.png");
         //if player doesn't have any lives, display game over or if they beat all the levels
         if(p.isDead() || (enemies.size() <= 0 && level >= LEVELS))
         {
             update.stop();
             game_over(g);
         }     
+        //Creates powerups on screen
+        if(canPowerup = true){
+                if(r.nextBoolean() == true){
+                    powerup = ts;
+                    powerup.paint(g,"Triple_shot.png");
+                    startTime = System.currentTimeMillis();
+                    endTime = System.currentTimeMillis() + 30000;
+                }
+                else{
+                    powerup = el;
+                    powerup.paint(g,"Extra_Life.png");
+                    startTime = System.currentTimeMillis();
+                    endTime = System.currentTimeMillis() + 30000;
+                }
+        }    
     }
+    
     
     public void reset()
     {
@@ -100,6 +122,7 @@ public class GamePanel extends JPanel{
         level = 1;
         enemy_speed=8;
         enemy_health = 1;
+        canPowerup = false;
         
        // p.set_xpos((int)(WIDTH / 2));
        // p.set_ypos((int) HEIGHT - 75); 
@@ -110,6 +133,7 @@ public class GamePanel extends JPanel{
         p.loseLife();
         //reset enemies, but don't change enemy count
         reset_enemyRound(enemies);
+        canPowerup = false;
     }
     
     public void reset_enemies()
@@ -122,7 +146,7 @@ public class GamePanel extends JPanel{
         {
             enemyNum = 12;
             enemy_health++;
-            enemy_speed++;
+            enemy_speed -= 3;
         }
          //Creates spawn positions for the enemies on display
         for(int i = 0; i < enemyNum; i++)
@@ -143,7 +167,10 @@ public class GamePanel extends JPanel{
         //Creates spawn positions for the enemies on display
         for(int i = 0; i < enemyNum; i++)
         {   
+            try{
             enemies.remove(i);
+            }
+            catch(IndexOutOfBoundsException a){}
             repaint();
             boolean moveRight = true;
             spawnPos[0] = (int)(WIDTH/30)*2*i;
@@ -194,7 +221,12 @@ public class GamePanel extends JPanel{
                 if(update.isRunning())
                 {
                     p.shoot(shots);
-                    
+                    //loop to allow powerups to spawn
+                     if((r.nextInt(100) * r.nextInt(10) / 10) >= 100)
+        {
+            canPowerup = true;
+            powerup.add();
+        }
                 }
             }
          
