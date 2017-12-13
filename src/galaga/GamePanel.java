@@ -32,7 +32,7 @@ public class GamePanel extends JPanel{
     public Random r = new Random();
     
     private int enemy_health = 1;
-    private int enemy_speed = 50;
+    private int enemy_speed = 8;
     public final static int LEVELS = 30;
     private int level = 1;
     Timer restart;
@@ -98,7 +98,8 @@ public class GamePanel extends JPanel{
         p.setScore(0);
         p.setLives(5);
         level = 1;
-        enemy_speed=5;
+        enemy_speed=8;
+        enemy_health = 1;
         
        // p.set_xpos((int)(WIDTH / 2));
        // p.set_ypos((int) HEIGHT - 75); 
@@ -106,7 +107,7 @@ public class GamePanel extends JPanel{
     public void resetLevel()
     {
         update.stop();
-        p.loseLife();p.loseLife();p.loseLife();
+        p.loseLife();
         //reset enemies, but don't change enemy count
         reset_enemyRound(enemies);
     }
