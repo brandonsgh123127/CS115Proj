@@ -6,8 +6,7 @@ package galaga;
 public class Enemy_Player extends Player{
     private int health; //The number of hits it takes to kill the enemy
     private final int screenWidth;
-    private boolean moveRight;
-    
+    private boolean moveRight;    
     /**
      * The constructor for the Enemy_Player object
      * @param xPos the enemy's starting x position
@@ -84,7 +83,7 @@ public class Enemy_Player extends Player{
         super.set_ypos(yPos);
         
     }
-    
+
 }
     
     
