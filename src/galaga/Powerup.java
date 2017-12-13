@@ -13,7 +13,8 @@ public class Powerup{
     private final int WIDTH, HEIGHT;
     private int x_pos, y_pos, width, height;
     private Random r = new Random();
-    private boolean canPaint = true;
+    private boolean canPaint;
+    
     
     public Powerup(int WIDTH, int HEIGHT) {
         this.WIDTH = WIDTH;
@@ -25,7 +26,13 @@ public class Powerup{
     }
     
     public void remove(){
+        canPaint = false;
+    }
+    public void add(){
         canPaint = true;
+    }
+    public boolean isVisible(){
+        return canPaint;
     }
     
     public void reposition(){
