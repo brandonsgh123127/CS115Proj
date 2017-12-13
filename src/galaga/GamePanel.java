@@ -88,6 +88,7 @@ public class GamePanel extends JPanel{
         //if player doesn't have any lives, display game over or if they beat all the levels
         if(p.isDead() || (enemies.size() <= 0 && level >= LEVELS))
         {
+            update.stop();
             game_over(g);
         }     
     }
@@ -99,13 +100,13 @@ public class GamePanel extends JPanel{
         level = 1;
         enemy_speed=5;
         
-        p.set_xpos((int)(WIDTH / 2));
-        p.set_ypos((int) HEIGHT - 75); 
+       // p.set_xpos((int)(WIDTH / 2));
+       // p.set_ypos((int) HEIGHT - 75); 
     }
     public void resetLevel()
     {
         update.stop();
-        p.loseLife();
+        p.loseLife();p.loseLife();p.loseLife();
         //reset enemies, but don't change enemy count
         reset_enemyRound(enemies);
     }
@@ -141,6 +142,8 @@ public class GamePanel extends JPanel{
         //Creates spawn positions for the enemies on display
         for(int i = 0; i < enemyNum; i++)
         {   
+            enemies.remove(i);
+            repaint();
             boolean moveRight = true;
             spawnPos[0] = (int)(WIDTH/30)*2*i;
             spawnPos[1] = 10;
@@ -149,7 +152,7 @@ public class GamePanel extends JPanel{
                 spawnPos[1] = 10 + (int) WIDTH/25;
                 moveRight = false;
             }
-                enemies.set(i,new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, enemy_health, (int)WIDTH, moveRight));
+                enemies.add(i,new Enemy_Player(spawnPos[0],spawnPos[1],(int)WIDTH / 30,(int)WIDTH / 30,enemy_speed,(int)WIDTH / 25, enemy_health, (int)WIDTH, moveRight));
         }
     }
     public class AListener implements ActionListener
@@ -206,8 +209,10 @@ public class GamePanel extends JPanel{
             }
 
             //Update current state of the game and draw
+            if(update.isRunning()){
             process_collisions();
             repaint();
+            }
         }  
     }   
     
@@ -219,7 +224,6 @@ public class GamePanel extends JPanel{
             if(enemies.get(i).hit(p))
             {
                 //enemies.remove(i);
-                
                 resetLevel();
                 update.start();
                 
