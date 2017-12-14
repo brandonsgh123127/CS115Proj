@@ -83,6 +83,7 @@ public class Controlled_Player extends Player{
     
     public void canTripleShoot(){
         tripleShot = true;
+        shotCounter = 0;
     }
     
     /**
@@ -102,6 +103,7 @@ public class Controlled_Player extends Player{
         }
         if(shotCounter == 30){
             tripleShot = false;
+            shotCounter = 0;
         }
     }
     
