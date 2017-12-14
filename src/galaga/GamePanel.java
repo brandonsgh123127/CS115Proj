@@ -17,8 +17,6 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ArrayList;
 import javax.swing.Timer;
-  
-
 
 public class GamePanel extends JPanel{ 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //gets dimensions of user
@@ -47,9 +45,7 @@ public class GamePanel extends JPanel{
     //The powerup object. It will use polymorphism to switch between powerups
     private Powerup powerup;
     boolean canPowerup = false;
-    long startTime;
-    long endTime;  //used for powerup endtime;
-    
+    private String powerPNG = "";
     
     private Triple_Shot ts = new Triple_Shot((int)WIDTH, (int)HEIGHT);
     private Extra_Life el = new Extra_Life((int)WIDTH, (int)HEIGHT);
@@ -89,29 +85,17 @@ public class GamePanel extends JPanel{
         for(int i =0; i < shots.size(); i++)
         {
             shots.get(i).paint(g);
-        }powerup = ts;
-                    powerup.paint(g,"Triple_shot.png");
+        }
         //if player doesn't have any lives, display game over or if they beat all the levels
         if(p.isDead() || (enemies.size() <= 0 && level >= LEVELS))
         {
             update.stop();
             game_over(g);
-        }     
-        //Creates powerups on screen
-        if(canPowerup = true){
-                if(r.nextBoolean() == true){
-                    powerup = ts;
-                    powerup.paint(g,"Triple_shot.png");
-                    startTime = System.currentTimeMillis();
-                    endTime = System.currentTimeMillis() + 30000;
-                }
-                else{
-                    powerup = el;
-                    powerup.paint(g,"Extra_Life.png");
-                    startTime = System.currentTimeMillis();
-                    endTime = System.currentTimeMillis() + 30000;
-                }
-        }    
+        } 
+        
+        if(canPowerup){
+            powerup.paint(g, powerPNG);
+        }
     }
     
     
@@ -221,12 +205,7 @@ public class GamePanel extends JPanel{
                 if(update.isRunning())
                 {
                     p.shoot(shots);
-                    //loop to allow powerups to spawn
-                     if((r.nextInt(100) * r.nextInt(10) / 10) >= 100)
-        {
-            canPowerup = true;
-            powerup.add();
-        }
+                    
                 }
             }
          
@@ -280,7 +259,21 @@ public class GamePanel extends JPanel{
             if(enemies.size() <= 0 && level < LEVELS)
             {
                 level_up();
-                level++;
+            }
+            if(canPowerup){
+            for(int j=0; j < shots.size(); j++)
+            {
+                if(powerup.hit(shots.get(j))){
+                    shots.remove(j);
+                    if(powerup.equals(el)){
+                        p.gainLife();
+                    }
+                    if(powerup.equals(ts)){
+                        p.canTripleShoot();
+                    }
+                    canPowerup = false;
+                }
+            }
             }
         }
     }
@@ -288,6 +281,18 @@ public class GamePanel extends JPanel{
     public void level_up()
     {
         reset_enemies();
+        level++;
+        if(r.nextInt(10) == 0){
+            canPowerup = true;
+            if(r.nextInt(1) == 0){
+                powerup = ts;
+                powerPNG = "Triple_Shot.png";
+            }
+            else{
+                powerup = el;
+                powerPNG = "Extra_Life.png";
+            } 
+        }
     }
         
     public void game_over(Graphics g)

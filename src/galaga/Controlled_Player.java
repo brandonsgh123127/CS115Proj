@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class Controlled_Player extends Player{
     private int lives;
     private int score = 0; //Sets the initial score of the player to 0
+    private boolean tripleShot = false;
+    private int shotCounter = 0;
     
     /**
      * The constructor
@@ -79,13 +81,28 @@ public class Controlled_Player extends Player{
         return false;
     }
     
+    public void canTripleShoot(){
+        tripleShot = true;
+    }
+    
     /**
      * Shoots a projectile
      */
     public void shoot(ArrayList<Shot> shots)
     {
         //Insert code for shooting once the projectile object is done
-        shots.add(new Shot(get_xpos()+(get_width()/2),get_ypos(),12,7,0,30)); 
+        if(tripleShot){
+        shots.add(new Shot(get_xpos()+(get_width()/2),get_ypos(),12,7,0,30));
+        shots.add(new Shot(get_xpos()+(get_width()/2) - 20,get_ypos() + 5,12,7,0,30));
+        shots.add(new Shot(get_xpos()+(get_width()/2) + 20,get_ypos() + 5,12,7,0,30));
+        shotCounter++;
+        }
+        else{; 
+        shots.add(new Shot(get_xpos()+(get_width()/2),get_ypos(),12,7,0,30));
+        }
+        if(shotCounter == 30){
+            tripleShot = false;
+        }
     }
     
 }
